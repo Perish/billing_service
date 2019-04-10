@@ -38,7 +38,7 @@ module BillingService
     #   yylxdm: "应用类型代码", fplxdm: "发票类型代码", ghdwsbh: "购货单位识别号",
     #   ghdwmc: "购货单位名称", ghdwdzdh: "购货单位地址电话", ghdwyhzh: "购货单位银行帐号", 
     #   total_money: "总价格", bz: "备注", skr: "收款人", fhr: "复核人",
-    #   operator_name: "开票人", GMF_DZYX: "收票人电子邮箱", GMF_SJHM: "收票人手机号码"
+    #   operator_name: "开票人", email: "收票人电子邮箱", phone: "收票人手机号码"
     #   }
     #   groups: [{
     #   spmc: "商品名称", spsm: "商品税目", ggxh: "规格型号", dw: "单位",
