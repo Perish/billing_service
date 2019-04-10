@@ -25,20 +25,22 @@ BillingService::Client.register_app("开发号key", "企业名称", "应用名")
 
 第四步，发票开具
 ```ruby
-# params: 
+# params:
+# {
 #   appid: "每个调用该接口的应用ID，唯一", 
 #   inputs: {
 #   sid: "每个应用对应交易流水号，在一个应用里面是不允许重复的", tax_rate: 税率, 
-#   fplxdm: "发票类型代码 026电子票, 007普票, 004专票", ghdwsbh: "购货单位识别号",
+#   yylxdm: "应用类型代码", fplxdm: "发票类型代码", ghdwsbh: "购货单位识别号",
 #   ghdwmc: "购货单位名称", ghdwdzdh: "购货单位地址电话", ghdwyhzh: "购货单位银行帐号", 
 #   total_money: "总价格", bz: "备注", skr: "收款人", fhr: "复核人",
 #   operator_name: "开票人", email: "收票人电子邮箱", phone: "收票人手机号码"
 #   }
 #   groups: [{
-#   spmc: "商品名称", spsm: "商品税目", ggxh: "规格型号",
-#   money: "商品价格", spbm: "商品编码", zxbm: "纳税人自行编码" 
+#   spmc: "商品名称", spsm: "商品税目", ggxh: "规格型号", dw: "单位",
+#   spsl: "商品数量", money: "商品价格",
+#   spbm: "商品编码", zxbm: "纳税人自行编码" 
 #   }]
-# 
+# }
 BillingService::Client.send_invoice(appid, inputs = {}, groups = [])
 ```
 
