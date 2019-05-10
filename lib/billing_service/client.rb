@@ -130,14 +130,8 @@ module BillingService
     private
 
     def self.invoke_request(url, payload, options = {})
-      RestClient::Request.execute(
-        { 
-          method: :post,
-          url: url, 
-          payload: payload, 
-          headers: { content_type: 'application/x-www-form-urlencoded;charset=utf-8' }
-        }.merge(options)
-      )
+      RestClient.post(url, "bw=#{payload}", 
+        content_type: 'application/x-www-form-urlencoded;charset=utf-8').body
     end
 
   end
