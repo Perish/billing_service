@@ -50,6 +50,11 @@ module BillingService
     # }
     # =end
     def self.send_invoice(appid, inputs = {}, groups = [])
+      p "inputs---------"
+      p inputs.inspect
+      p "groups ---------"
+      p groups.inspect
+
       tax_rate = inputs.delete(:tax_rate) || BillingService.tax_rate
       total_money = (BigDecimal.new(inputs[:total_money].to_s) / BigDecimal.new((1 + tax_rate).to_s)).round(2)
       total_tax = (BigDecimal.new(total_money.to_s) * BigDecimal.new(tax_rate.to_s)).round(2)
@@ -72,7 +77,7 @@ module BillingService
                   s_money = (BigDecimal.new(money.to_s) * BigDecimal.new(tax_rate.to_s)).round(2)
                   xml.group(xh: "#{i+1}") do
                     xml.fphxz 0
-                    xml.spmc g[:name]
+                    xml.spmc g[:spmc]
                     xml.spsm g[:spsm] || ''
                     xml.ggxh g[:ggxh] || ''
                     xml.dw g[:dw] || ''
@@ -102,6 +107,9 @@ module BillingService
           end
         end
       end
+
+      p 'xml---------------------------'
+      p xml.inspect
 
       BillingService::Result.new(
         Hash.from_xml(
