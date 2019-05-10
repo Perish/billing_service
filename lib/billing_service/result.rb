@@ -10,10 +10,10 @@ module BillingService
       if result['business'].class == Hash
         result['business']['head'].each_pair do |k, v|
           self[k] = v
-        end
+        end if result['business']['head'].present?
         result['business']['body'].each_pair do |k, v|
           self[k] = v
-        end
+        end if result['business']['body'].present?
       end
     end
 
