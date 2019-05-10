@@ -1,9 +1,11 @@
 #coding: utf-8
+require 'rest-client'
+
 module BillingService
   module Client
 
     # 注册应用 
-    def self.register_app(qy_name, appname, devkey = '')
+    def self.register_app(qy_name, appname, devkey = nil)
       devkey ||= BillingService.devkey
       xml = Nokogiri::XML::Builder.new(encoding: 'utf-8') do |xml|
         xml.business(comment: '登记应用', id: 'DJAPP', version: '1.0') do
@@ -16,7 +18,7 @@ module BillingService
       end
       res = BillingService::Result.new(
         Hash.from_xml(
-          invoke_request(BillingService.gateway_url , "bw=#{xml.to_xml}")
+          invoke_request(BillingService.gateway_url, xml.to_xml)
         )
       )
       if res.success?
@@ -103,7 +105,7 @@ module BillingService
 
       BillingService::Result.new(
         Hash.from_xml(
-          invoke_request(BillingService.gateway_url , "bw=#{xml.to_xml}")
+          invoke_request(BillingService.gateway_url, xml.to_xml)
         )
       )
     end
@@ -122,7 +124,7 @@ module BillingService
       end
       BillingService::Result.new(
         Hash.from_xml(
-          invoke_request(BillingService.gateway_url, "bw=#{xml.to_xml}")
+          invoke_request(BillingService.gateway_url, xml.to_xml)
         )
       )
     end
@@ -130,8 +132,11 @@ module BillingService
     private
 
     def self.invoke_request(url, payload, options = {})
-      RestClient.post(url, "bw=#{payload}", 
-        content_type: 'application/x-www-form-urlencoded;charset=utf-8').body
+      res = RestClient.post(url, "bw=#{payload}", 
+        content_type: 'application/x-www-form-urlencoded;charset=utf-8')
+      p 'body--res'
+      p res.body.inspect
+      res.body
     end
 
   end

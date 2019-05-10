@@ -18,7 +18,7 @@ module BillingService
     end
 
     def success?
-      self['returncode'] == SUCCESS_FLAG
+      self['returncode'].to_s == SUCCESS_FLAG
     end
 
     def returnmsg
